@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+/**
+ * Exercise 1.1: Pass by Value
+ * 1. Takes an integer by value (creates a local copy).
+ * 2. Returns the square.
+ */
+int squareByValue(int n) {
+    return n * n;
+}
+
+/**
+ * Exercise 1.2: Pass by Reference
+ * 1. Takes an integer by reference using &.
+ * 2. Modifies the original variable directly.
+ */
+void squareByReference(int &n) {
+    n = n * n;
+}
+
+/**
+ * Exercise 1.3: Pass by Pointer
+ * 1. Takes an integer pointer.
+ * 2. Dereferences to access and square the value.
+ */
+void squareByPointer(int *n) {
+    *n = (*n) * (*n);
+}
+
+/* Exercise 2.1 */
+void squareArrayUsingSubscriptSyntax(int* arr, int size) {
+    for(int i = 0; i < size; i++) {
+        arr[i] = arr[i] * arr[i];
+    }
+    // No extra endl in loop as requested
+}
+
+/* Exercise 2.2 */
+void printArrayUsingSubscriptSyntax(int arr[], int size) {
+    for(int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+/* Exercise 2.3 */
+void squareArrayUsingArrayNameAsPointer(int* arr, int size) {
+    for(int i = 0; i < size; i++) {
+        // Use pointer arithmetic: *(arr + i)
+        *(arr + i) = *(arr + i) * *(arr + i);
+    }
+}
+
+/* Exercise 2.4 */
+void printArrayUsingArrayNameAsPointer(int arr[], int size) {
+    for(int i = 0; i < size; i++) {
+        cout << *(arr + i) << " ";
+    }
+    cout << endl;
+}
+
+/* Exercise 2.5 */
+void squareArrayUsingNonConstantPointer(int arr[], int size) {
+    int* ptr = arr; // Pointer to the first element
+    for(int i = 0; i < size; i++) {
+        *ptr = (*ptr) * (*ptr); // Square value at current pointer
+        ptr++; // Move to next memory address
+    }
+}
+
+/* Exercise 2.6 */
+void printArrayUsingNonConstantPointer(int arr[], int size) {
+    int* ptr = arr;
+    for(int i = 0; i < size; i++) {
+        cout << *ptr << " ";
+        ptr++;
+    }
+    cout << endl;
+}
+
+int main() {
+    /************************PART-1*********************/
+    int myNum = 2;
+    cout << "Initial value: " << myNum << endl;
+
+    // --- 1.1 Testing Pass by Value ---
+    myNum = squareByValue(myNum);
+    cout << "After squareByValue ->  myNum: " << myNum << endl;
+
+    // --- 1.2 Testing Pass by Reference ---
+    squareByReference(myNum);
+    cout << "After squareByReference -> myNum: " << myNum << endl;
+
+    // --- 1.3 Testing Pass by Pointer ---
+    squareByPointer(&myNum); 
+    cout << "After squareByPointer -> myNum: " << myNum << endl;
+
+    /************************PART-2*********************/
+    const int SIZE = 4;
+    int data[SIZE] = {1, 2, 3, 4};
+
+    cout << "\n--- Exercise 2.1 & 2.2: Subscript Syntax ---" << endl;
+    squareArrayUsingSubscriptSyntax(data, SIZE);
+    printArrayUsingSubscriptSyntax(data, SIZE); // Expected: 1 4 9 16
+
+    cout << "\n--- Exercise 2.3 & 2.4: Array Name as Pointer ---" << endl;
+    squareArrayUsingArrayNameAsPointer(data, SIZE);
+    printArrayUsingArrayNameAsPointer(data, SIZE); // Expected: 1 16 81 256
+
+    cout << "\n--- Exercise 2.5 & 2.6: Non-Constant Pointer (ptr++) ---" << endl;
+    squareArrayUsingNonConstantPointer(data, SIZE);
+    printArrayUsingNonConstantPointer(data, SIZE); // Expected: 1 256 6561 65536
+
+    return 0;
+}
