@@ -1,0 +1,27 @@
+#include using namespace std;
+
+class Book{
+private:
+string header;
+string author;
+int year;
+public:
+void setheader(string h){
+header = h;
+}
+void setauthor(string a){
+author = a;
+}
+void setyear(int y){
+year=y;
+}
+};
+
+int main(int argc, char** argv ){
+Book book1; //stack(static memory)
+book1.setheader("Crime & Punishment");
+book1.setauthor("Dostoyevski");
+book1.setyear(1995);
+// cout<<"header:"<
+return 0;
+}
