@@ -1,0 +1,78 @@
+#include using namespace std;
+
+class Book{
+private:
+string header;
+string author;
+int year;
+public:
+void setheader(string h){
+header = h;
+}
+void setauthor(string a){
+author = a;
+}
+void setyear(int y){
+year=y;
+}
+//getter
+string getheader(){
+return header;
+}
+string getauthor(){
+return author;
+}
+int getyear(){ //set method is always void get method is never void (it doesnt want sth from us we want sth from it)
+return year;
+}
+};
+
+int main(int argc, char** argv ){
+Book book1; //stack(static memory)
+book1.setheader("Crime & Punishment");
+book1.setauthor("Dostoyevski");
+book1.setyear(1995);
+cout<<"header:"< cout<<" ,author:"< cout<<" ,year:"< // cout<<"header:"<
+return 0;
+}
+
+16:53
+#include using namespace std;
+
+class Book{
+private:
+string header;
+string author;
+int year;
+public:
+void setheader(string h){
+header = h;
+}
+void setauthor(string a){
+author = a;
+}
+void setyear(int y){
+year=y;
+}
+//getter
+string getheader(){
+return header;
+}
+string getauthor(){
+return author;
+}
+int getyear(){ //set method is always void get method is never void (it doesnt want sth from us we want sth from it)
+return year;
+}
+
+void printinfo(){
+cout<<"header:"< }
+};
+
+int main(int argc, char** argv ){
+Book book1; //stack(static memory)
+book1.setheader("Crime & Punishment");
+book1.setauthor("Dostoyevski");
+book1.setyear(1995);
+cout<<"header:"< cout<<" ,author:"< cout<<" ,year:"< // cout<<"header:"< // cout<<"header:"< return 0;
+}
