@@ -1,0 +1,18 @@
+#include <iostream>
+
+int main() {
+    using namespace std;
+    int x=10;
+    int *ptr;
+    ptr=&x;
+    
+    //or int *ptr=&x; --> initialization & declaration
+    
+    cout<<"The value of our pointer is:"<<sizeof(&x)<<endl;
+    cout<<"The value of our pointer is:"<<sizeof(x)<<endl;
+    cout<<"The value of our pointer is:"<<&x<<endl;
+    cout<<"The value of our pointer is:"<<x<<endl;
+    cout<<"The value of our pointer is:"<<*ptr<<endl;
+
+    return 0;
+}
