@@ -1,0 +1,47 @@
+#include <iostream>
+
+int main() {
+    using namespace std;
+    int x=1;
+    int *xptr=&x;
+    
+    cout<<xptr<<endl;
+    //If you want to change the number 1 to a 2, you must use (*xptr)++ before moving the pointer.
+    
+    
+    cout<<xptr++<<endl;
+    //returns the same schedules the next
+    //returns the current address first, then increments.
+    //xptr no longer points to x. It points to the "empty" space next to it.
+    
+    cout<<*xptr++<<endl;
+    //random value at the new address
+    //It looks at the current address (...9488), gets the value there, and then moves the pointer again to ...9492.
+    //-1593011060. This is Garbage Data. Since you didn't put a variable at address 9488, you are seeing whatever random leftover bits were in your RAM.
+    
+    cout<<(*xptr++)<<endl;
+    //It grabs the value at the current "garbage" address (...9492) and then moves the pointer to ...9496.
+    //32766. More garbage data.
+    
+    //INCREMENTS VALUE 
+    //output: next memory address since x=2 and pointer points to 2(x)
+    
+    cout<<*(xptr++)<<endl;
+    //This is identical to Line 11. It moves the pointer to the next neighbor and reads the junk data there.
+    
+    cout<<(*xptr)++<<endl;
+    //(*xptr) goes to the current address (now at ...9500).
+    //It sees a 0 there. It prints that 0.
+    //It adds 1 to that memory spot (turning that 0 into a 1).
+    cout<<(*xptr)++<<endl;
+    return 0;
+}
+
+outputs:
+0x7ffc4b904694
+0x7ffc4b904694
+1267746460
+32764
+1
+0
+1
