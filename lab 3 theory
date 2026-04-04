@@ -1,0 +1,63 @@
+#include using namespace std;
+class Team{
+private:
+string name;
+int nummatches=0;
+int numwins=0;
+int numdraws=0;
+int numlosses=0;
+int goalsforarray[34];
+int goalsforagainst[34];
+// in final int *arr;
+
+cout<<"enter the name of the team: ";
+getline(cin, name)
+team* team=new Team(name); //Team team(name);
+
+void printteamstatus()
+{
+cout<<"team name:"< }
+int totalgoalsfor(){
+int total=0;
+for(int i=0;i total+=goalsforarray[i];
+return total;
+}
+
+int calculatepoints(){
+int total=3*numwins+numdraws;
+}
+
+public:
+Team(const string& name){
+this -> name= name;
+}
+
+void addmatch(int goalsfor, int goalsagainst){
+goalsforarray[nummatches]=goalsfor;
+goalsagainstarray[nummatches]=goalsagainst;
+nummatches++;
+if(goalsfor>goalsagainst)
+numwins++;
+else if (goalsfor==goalsagainst)
+numdraws++;
+else
+numlosses++;
+
+nummatches++;
+
+}
+};
+
+//yapıcı metod her zaman public olur
+
+int main(){
+//in heap
+Team myTeam("x"); //stack
+myTeam.addmatch(2,6);
+
+}
+
+//dont forget to ask operator overloading
+// 15 points fill in the blanks(code)
+// 30 code
+//20 code
