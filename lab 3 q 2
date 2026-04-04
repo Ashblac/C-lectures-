@@ -1,0 +1,115 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+#ifndef M_PI
+#define M_PI 3.141592
+#endif
+
+class Circle {
+private:
+    double x, y, radius;
+
+    // Private helper methods
+    double calculateArea() {
+        return M_PI * radius * radius;
+    }
+
+    double calculateCircumference() {
+        return 2 * M_PI * radius;
+    }
+
+public:
+    // Constructor 
+    Circle(double x, double y, double radius) {
+        this->x = x;
+        this->y = y;
+        this->radius = radius;
+    }
+
+    void move(double delta_x, double delta_y) {
+        x += delta_x;
+        y += delta_y;
+    }
+
+    void printInfo() {
+        cout << "Center: (" << x << ", " << y << ")" << endl;
+        cout << "Radius: " << radius << endl;
+        cout << "Area: " << calculateArea() << endl;
+        cout << "Circumference: " << calculateCircumference() << endl;
+    }
+
+    bool isLarger(Circle& other) {
+        return this->radius > other.radius;
+    }
+
+    double calculateDistance(Circle& otherCircle) {
+        return sqrt(pow(this->x - otherCircle.x, 2) + pow(this->y - otherCircle.y, 2));
+    }
+};
+
+int main() {
+    double x, y, radius;
+
+    // --- Heap Allocation ---
+    cout << "Enter x, y and radius respectively for the first circle: ";
+    cin >> x >> y >> radius;
+    Circle* circle1 = new Circle(x, y, radius);
+
+    cout << "Enter x, y and radius respectively for the second circle: ";
+    cin >> x >> y >> radius;
+    Circle* circle2 = new Circle(x, y, radius);
+
+    circle1->move(2, 3);
+
+    if (circle1->isLarger(*circle2)) {
+        cout << "Circle 1 is larger than Circle 2" << endl;
+    } else {
+        cout << "Circle 1 is not larger than Circle 2" << endl;
+    }
+
+    double dist = circle1->calculateDistance(*circle2);
+    cout << "The distance between the centers of Circle 1 and Circle 2 is: " << dist << endl;
+    
+    cout << "\n- Info for circle1 -" << endl;
+    circle1->printInfo();
+
+    delete circle1;
+    delete circle2;
+
+    // --- Stack Allocation (TODOs) ---
+    // TODO 1: Get x, y and radius
+    cout << "\nEnter x, y and radius for circle3: ";
+    cin >> x >> y >> radius;
+    // TODO 2: Create object named circle3 on stack
+    Circle circle3(x, y, radius);
+
+    // --- Circle 4 ---
+    cout << "Enter x, y and radius for circle4: ";
+    // TODO 3: Get x, y and radius
+    cin >> x >> y >> radius;
+    // TODO 4: Create object named circle4 on stack
+    Circle circle4(x, y, radius);
+
+    cout << "\n--- Comparing Circle 3 and Circle 4 ---" << endl;
+    // TODO 5: Write a similar if-else calling isLarger method
+    if (circle3.isLarger(circle4)) {
+        cout << "Circle 3 is larger than Circle 4" << endl;
+    } else {
+        cout << "Circle 3 is not larger than Circle 4" << endl;
+    }
+
+    // TODO 6: Call calculateDistance method over circle3
+    dist = circle3.calculateDistance(circle4);
+    cout << "The distance between the centers of Circle 3 and Circle 4 is: " << dist << endl;
+
+    // TODO 7: Call printInfo for circle 3
+    cout << "\n- Info for Circle 3 -" << endl;
+    circle3.printInfo();
+
+    // TODO 8: Call printInfo for circle 4
+    cout << "\n- Info for Circle 4 -" << endl;
+    circle4.printInfo();
+
+    return 0;
+}
