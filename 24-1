@@ -1,0 +1,94 @@
+#include #include using namespace std;
+
+class Store {
+private:
+string name;
+// Arrays for storing up to 10 orders
+string products[10];
+int quantities[10];
+double prices[10];
+double costs[10];
+int orderCounter; // counts how many orders are stored
+
+double calculateTotalCost() {
+double totalCost = 0;
+// TODO1: Loop through stored orders and accumulate cost * quantity
+for (int i = 0; i < orderCounter; i++) {
+totalCost += costs[i] * quantities[i];
+}
+return totalCost;
+}
+
+// Implement total income calculation
+double calculateTotalIncome() {
+double income = 0;
+// TODO2: loop through orders and sum price * quantity
+for (int i = 0; i < orderCounter; i++) {
+income += prices[i] * quantities[i];
+}
+return income;
+}
+
+// Implement profit calculation
+double calculateTotalProfit() {
+// TODO 3: Call the two other helper functions and subtract
+double totalIncome = calculateTotalIncome();
+double totalCost = calculateTotalCost();
+double totalProfit = totalIncome - totalCost;
+
+return totalProfit;
+}
+
+public:
+// Constructor
+Store(const string& name) {
+this->name = name;
+orderCounter = 0;
+}
+
+// Add order method
+void addOrder(string product, int quantity, double price, double cost) {
+if (orderCounter < 10) {
+products[orderCounter] = product;
+// TODO 3: store the other 3 values in the related arrays
+quantities[orderCounter] = quantity;
+prices[orderCounter] = price;
+costs[orderCounter] = cost;
+
+// TODO 4: increment orderCounter
+orderCounter++;
+} else {
+cout << "Store is full! Cannot add more orders." << endl;
+}
+}
+
+// Summary method
+void displaySummary() {
+cout << "\n--- Store Summary: " << name << " ---" << endl;
+cout << "Total number of orders: " << orderCounter << endl;
+cout << "Total income: " << calculateTotalIncome() << "$" << endl;
+cout << "Total cost: " << calculateTotalCost() << "$" << endl;
+cout << "Total profit: " << calculateTotalProfit() << "$" << endl;
+}
+};
+
+int main() {
+int numOrders, num;
+double price, cost;
+string product;
+
+Store store("Store-1");
+
+cout << "Enter number of orders (max 10): ";
+cin >> numOrders;
+
+for(int i = 0; i < numOrders; i++) {
+cout << "Enter product name, quantity, price, and cost: ";
+cin >> product >> num >> price >> cost;
+store.addOrder(product, num, price, cost);
+}
+
+store.displaySummary();
+
+return 0;
+}
