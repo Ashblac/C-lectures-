@@ -1,0 +1,94 @@
+#include
+#include
+#include // Needed for out_of_range
+#include
+using namespace std;
+// PREVIOUS CLASSES ARE READY TO USE. YOU HAVE TO COMPLETE 4 PARTS BELOW
+// --- PART-1: Stack Implementation using ready to use list data member---
+template
+class MyStack {
+private:
+// We use the DoublyLinkedList object named list as our underlying container.
+list container;// This effectively hides the linked list details from the Stack user.
+// We provide stack-like behavior using 'container’ which is a list object
+public:
+int size() { //First method is given for you.
+return container.size();
+}
+
+// push method: Adds element to top of stack
+void push(const T& data) {
+// In a linked list stack, "Head" is "Top".
+container.push_front(data);
+}
+// pop method: Removes element from top of stack
+void pop() {
+container.pop_front();
+}
+// top method: Returns reference to top element
+T& top() {
+return container.front();
+}
+
+// empty method: Checks if stack is empty
+bool empty() {
+return container.empty();
+}
+};
+// --- PART-2 Reverse String Function ---
+string reverseString(string input) {
+MyStack charStack;//new empty MyStack object
+string reversedResult = "";
+// Step 1: Traverse the input string
+// Loop through each character of 'input' and push it onto 'charStack'
+for (int i = 0; i
+int countOccurrences(MyStack& originalStack, const T& target) {
+int count = 0;
+MyStack tempStack; // Temporary stack of the same type T
+// Phase 1 - Empty original stack into tempStack while counting
+while (!originalStack.empty()) {
+// 1. Get top data (Type is now T)
+T current = originalStack.top();
+// 2. Check if current matches target
+if (current == target) {
+count++;
+}
+// 3. Move element to tempStack and remove from originalStack
+tempStack.push(current);
+originalStack.pop();
+}
+// Phase 2 - Restore the original stack
+// Move everything from tempStack back to originalStack
+while (!tempStack.empty()) {
+originalStack.push(tempStack.top());
+tempStack.pop();
+}
+return count;
+}
+
+// TESTING (DO NOT CHANGE)
+int main() {
+// --- Test Part 1: Stack Operations ---
+cout myStack;
+myStack.push(10);
+myStack.push(20);
+myStack.push(30);
+cout << "Top element (Should be 30): " << myStack.top() << endl;
+myStack.pop();
+cout << "Top after pop (Should be 20): " << myStack.top() << endl;
+cout << "Stack size (Should be 2): " << myStack.size() << endl;
+// --- Test Part 2: Reverse String ---
+cout << "\n--- Testing Reverse String ---" << endl;
+string text = "Coding";
+cout << "Original: " << text << " | Reversed: " << reverseString(text) << endl;
+// --- Test Part 3: Palindrome Checker ---
+cout << "\n--- Testing Palindrome Checker ---" << endl;
+string words[] = {"racecar", "hello", "madam", "structure", "level"};
+for(int i=0; i<5; i++){
+if(isPalindrome(words[i])) {
+cout << words[i] << " is a palindrome." << endl;
+} else {
+cout << words[i] << " is NOT a palindrome." << endl;
+}
+}
+// ---
