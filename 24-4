@@ -1,0 +1,83 @@
+#include using namespace std;
+#include
+class Course{
+private:
+string code;
+string name;
+int ects;
+char grade;
+int findgradecoefficient(){ //HELPER FUNCTION
+if (grade=='A')
+return 4;
+else if(grade=='B')
+return 3;
+else if(grade=='C')
+return 2;
+else if(grade=='D')
+return 1;
+else
+return 0;
+}
+
+public:
+Course(){}
+Course(const string& code, const string& name, int ects, char grade){
+this->code=code;
+this->name=name;
+this->ects=ects;
+this->grade=grade;
+
+}
+int getEcts(){
+return ects;
+}
+int calculategainedcoursepoints(){
+return ects*findgradecoefficient();
+}
+void printcourseinfo(){
+cout< }
+};
+
+class Student{
+private:
+string name;
+int number;
+string department;
+vector courses; //string & string elements
+int findtotalects(){
+int total=0;
+for(int i=0;i //total = total + courses[i].ects;//if it was public
+total = total + courses[i].getEcts();
+return total;
+}
+
+int findtotalpoints(){
+int total=0;
+for(int i=0;i //total = total + courses[i].ects;//if it was public
+total = total + courses[i].calculategainedcoursepoints();
+return total;
+}
+
+double calculateGpa(){
+return findtotalpoints()/findtotalects();
+}
+public:
+Student(const string& name, int number, const string& department){
+
+this->name=name;
+this->number=number;
+this->department=department;
+}
+void addCourse(const Course& course){
+courses.push_back(course);
+}
+};
+
+int main(int argc, char** argv){
+Course course1("MATH151", "Calculus",5,'B');
+//cout<<"Ects:"< course1.printcourseinfo();
+
+Student student1("Ahmet Yılmaz",85,"EEM");
+
+return 0;
+}
