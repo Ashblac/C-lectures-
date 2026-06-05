@@ -1,0 +1,106 @@
+#include #include #include
+using namespace std;
+
+// -------------------- Order Class --------------------
+class Order {
+public:
+// TODO 1: Declare 4 attributes of Order class (properties)
+string productName;
+int quantity;
+double pricePerUnit;
+double costPerUnit;
+
+// TODO 2: Write the constructor
+Order(string name, int qty, double price, double cost)
+: productName(name), quantity(qty), pricePerUnit(price), costPerUnit(cost) {}
+
+double calculateOrderIncome() {
+// TODO 3: Replace 0 with multiplication of quantity and pricePerUnit
+return quantity * pricePerUnit;
+}
+
+// TODO 4: Replace 0 with appropriate expression (1 line)
+double calculateOrderCost() {
+return quantity * costPerUnit;
+}
+
+// TODO 5: Replace 0 with appropriate expression (1 line)
+double calculateOrderProfit() {
+// TODO 3: replace 0 values below with the correct value.
+// You have to call two other helper functions.
+double totalIncome = calculateOrderIncome();
+double totalCost = calculateOrderCost();
+double totalProfit = totalIncome - totalCost;
+
+return totalProfit;
+}
+};
+
+// -------------------- Store Class --------------------
+class Store {
+private:
+string name;
+vector orders;
+
+double calculateTotalIncome() {
+double totalIncome = 0;
+// TODO 5: calculate total income (2 lines)
+for (int i = 0; i < orders.size(); i++)
+totalIncome += orders[i].calculateOrderIncome();
+
+return totalIncome;
+}
+
+double calculateTotalCost() {
+double totalCost = 0;
+// TODO 6: loop through orders & sum costs (2 lines)
+for (int i = 0; i < orders.size(); i++)
+totalCost += orders[i].calculateOrderCost();
+
+return totalCost;
+}
+
+double calculateTotalProfit() {
+// TODO 7: use the two methods above (1 line)
+return calculateTotalIncome() - calculateTotalCost();
+}
+
+public:
+// TODO 9: Write the constructor
+Store(const string& storeName) : name(storeName) {}
+
+void addOrder(const Order& order) {
+// TODO 10: add the object named order to the vector orders (1 line)
+orders.push_back(order);
+}
+
+// Display summary
+void displaySummary() {
+cout << "\n--- Store Summary: " << name << " ---" << endl;
+cout << "Total number of orders: " << orders.size() << endl;
+cout << "Total income: " << calculateTotalIncome() << "$" << endl;
+cout << "Total cost: " << calculateTotalCost() << "$" << endl;
+cout << "Total profit: " << calculateTotalProfit() << "$" << endl;
+}
+};
+
+int main() {
+int numOrders, quantity;
+double price, cost;
+string product;
+
+Store store("Store-1");
+
+cout << "Enter number of orders(no bounds): ";
+cin >> numOrders;
+
+for (int i = 0; i < numOrders; i++) {
+cout << "Order #" << i + 1 << " - Enter product, quantity, price, and cost: ";
+cin >> product >> quantity >> price >> cost;
+Order order(product, quantity, price, cost);
+store.addOrder(order);
+}
+
+store.displaySummary();
+return 0;
+}
