@@ -1,0 +1,134 @@
+#include #include using namespace std;
+
+// Using template allows this class to work with any data type
+template class Node {
+public:
+T data;
+Node* next;
+// Constructor: Specifying default values (NULL) for the next pointer
+Node(const T& data = T(), Node* next = NULL) {
+this->data = data;
+this->next = next;
+}
+};
+
+template class MyLinkedList {
+private:
+Node* head;
+int sizeCounter; // Data member used to track the size of the list
+
+public:
+// Constructor: Initializes the list in an empty state
+MyLinkedList() {
+head = NULL;
+sizeCounter = 0;
+}
+
+bool empty() {
+// TODO 1: Check if the list is empty, but don't use sizeCounter
+return head == NULL;
+}
+
+int size() {
+// TODO 2: Return the current sizeCounter
+return sizeCounter;
+}
+
+T front() {
+if (empty())
+throw out_of_range("List is empty!");
+// TODO 3: return data property of the first (head) node (1 line)
+return head->data;
+}
+
+// Adds an element to the front of the list
+void push_front(const T& data) {
+// Creates a new node where 'next' points to the current head
+Node* newNode = new Node(data, head);
+
+// TODO 4.1: The new node becomes the new head node (1 line)
+head = newNode;
+
+// TODO 4.2: Update sizeCounter (1 line)
+sizeCounter++;
+}
+
+void pop_front() {
+if (empty())
+throw out_of_range("List is empty");
+
+// Stores the current head in a temporary pointer
+Node* temp = head;
+
+// TODO 5.1: Move the head pointer to the next node
+head = head->next;
+
+// TODO 5.2: delete the node pointed by temp to free memory
+delete temp;
+
+// TODO 5.3: Update the sizeCounter
+sizeCounter--;
+}
+
+void print() {
+// Traversal: Visiting every node to print its data
+Node* current = head;
+
+// TODO 6.1: loops as long as current is not NULL
+while (current != NULL) {
+cout << current->data << " ";
+// TODO 6.2: Move current pointer to the next node (1 line)
+current = current->next;
+}
+cout << endl;
+}
+
+void clear() {
+// TODO 7.1: Write a while loop. It should loop until list becomes empty (1 line)
+while (!empty()) {
+// TODO 7.2: while body: call pop_front member function (1 line)
+pop_front();
+}
+}
+
+// Destructor: Ensures all Node objects are properly deleted
+~MyLinkedList() {
+// TODO 8: Call clear function (1 line)
+clear();
+}
+
+// push_back function adds a new node at the end of the list
+void push_back(const T& data) {
+// Creates the new node
+Node* newNode = new Node(data, NULL);
+
+// If the list is empty, the new node becomes the head
+if (empty()) {
+// TODO 9.1: Update the head pointer to point to newNode (1 line)
+head = newNode;
+}
+else {
+// Otherwise, traverse to find the last node
+Node* current = head;
+// TODO 9.2: Loop until current->next becomes NULL
+while (current->next != NULL) {
+current = current->next;
+}
+// After exiting while loop, current points to the last node
+// TODO 9.3: Link the last node's next (current->next) to newNode
+current->next = newNode;
+}
+// TODO 9.4: Increase sizeCounter (1 line)
+sizeCounter++;
+}
+
+// pop_back member function removes the last node of the list
+void pop_back() {
+if (empty())
+throw out_of_range("List is empty");
+
+// Special Case: Only one element in the list
+if (head->next == NULL) {
+pop_front(); // Reusing our previous code!
+}
+else { // If we have multiple elements (more than 1 element)
