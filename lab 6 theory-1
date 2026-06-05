@@ -1,0 +1,104 @@
+#include #include #include #include
+using namespace std;
+class Page {
+public:
+string url;
+string title;
+
+Page(string url="google.com", string title="Google") {
+this->url=url;
+this->title=title;}
+
+string getDetails() {
+return title + " (" + url + ")";
+}
+};
+
+class BrowserManager{
+private:
+Page homePage;
+list openTabs;
+stack backHistory;
+public:
+BrowserManager(Page homePage){
+this->homePage=homePage;
+}
+void addNewTab(Page page){
+openTabs.push_back(page);
+}
+void visitPage(Page page){
+backHistory.push(page); //not push front lol :> }
+void closeFirstTab(){
+openTabs.pop_front();
+}
+void closeLastTab(){
+openTabs.pop_back();
+}
+int numTabsOpen(){
+return.openTabs.size();
+}
+int numPagesHistory(){
+return.backHistory.size(); //size method exists in all vectors
+}
+void closeAllTabs(){
+openTabs.clear(); //list stl google it lol :> }
+void closeAllPages(){
+//clear is not on stack !!
+while(!backHistory.empty()) //backHistory.size()>0
+backHistory.pop();
+}
+Page goBack(){
+if(backHistory.empty){
+return homePage;
+}
+else{
+Page lastPage= backHistory.top();
+backHistory.pop();
+return lastPage;
+}
+}
+void printHistory(){
+stack temp=backHistory;
+while(!temp.empty()){
+cout< temp.pop();
+}
+}
+
+
+};
+
+int main() {
+// Creating Page objects
+Page home("www.baskent.edu.tr", "Baskent");
+Page news("bbc.com", "BBC News");
+Page tech("github.com", "GitHub");
+Page sports("espn.com", "ESPN");
+
+// Test 1: Constructor
+BrowserManager myBrowser(home);
+cout << "Initial Tabs (Expected 1): " << myBrowser.numTabsOpen() << endl;
+// Test 2 : addNewTab
+myBrowser.addNewTab(news); // Adds new tab BBC
+myBrowser.addNewTab(tech); // Adds new tab github
+cout << "Tabs after adding (Expected 3): " << myBrowser.numTabsOpen() << endl;
+// Test 3: visitPage & Test 8: numPagesHistory
+myBrowser.visitPage(home);
+myBrowser.visitPage(sports);
+cout << "Number of pages visited (size of backHistory) (Expected 2): " << myBrowser. numPagesHistory () << endl;
+// Test 11: printHistory
+myBrowser.printHistory();
+// Test 4: goBack
+Page prev = myBrowser.goBack();
+cout << "Back clicked. New Top: " << prev.getDetails() << endl;
+// Test 5 & 6: closeFirst and closeLast
+myBrowser.closeFirstTab();
+myBrowser.closeLastTab();
+cout << "Tabs after closing first/last (Expected 1): " << myBrowser.numTabsOpen() << endl;
+// Test 9 & 10: clear all
+myBrowser.closeAllPages();
+myBrowser.closeAllTabs();
+cout << "Final check - Tabs: " << myBrowser.numTabsOpen()
+<< ", History: " << myBrowser.numPagesHistory() << endl;
+
+return 0;
+}
